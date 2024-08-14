@@ -17,3 +17,7 @@ const db = drizzle(queryClient);
 // Retrieve all orders from the database
 const results = await db.select().from(orders)
 console.log(results)
+
+// Retrieve filtered results manually
+const filteredResults = await db.select().from(orders).where(eq(orders.tenant, "ACME Corp"))
+console.log(filteredResults)
