@@ -21,3 +21,10 @@ console.log(results)
 // Retrieve filtered results manually
 const filteredResults = await db.select().from(orders).where(eq(orders.tenant, "ACME Corp"))
 console.log(filteredResults)
+
+// Function which enhances queries with a tenant filter
+function withTenantFilter(query, tenant, table) {
+    return query.$dynamic().where(eq(table.tenant, tenant))
+}
+const resultsWithTenantFilter = await withTenantFilter(db.select().from(orders), "ACME Corp", orders)
+console.log(resultsWithTenantFilter)
